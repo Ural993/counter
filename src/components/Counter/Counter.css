@@ -1,0 +1,21 @@
+.counter {
+    width: 250px;
+    height: 200px;
+    margin: 0 auto;
+    border: 2px solid aqua;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: black;
+
+}
+
+.wrapper {
+    border: 2px solid aqua;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+
+}

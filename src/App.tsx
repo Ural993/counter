@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Counter } from './components/Counter/Counter';
+import { Settings } from './components/Settings/Settings';
 
 function App() {
+  let valueMax = Number(localStorage.getItem('counterMaxValue'))
+  let valueMin = Number(localStorage.getItem('counterMinValue'))
+
+  useEffect(() => {
+    if (valueMax) {
+      setMaxValue(valueMax)
+    }
+    if (valueMin) {
+      setMinValue(valueMin)
+    }
+
+  })
+  let [maxValue, setMaxValue] = useState<number>(valueMax)
+  let [minValue, setMinValue] = useState<number>(valueMin)
+
+
+  const changeValues = (max: number, min: number) => {
+    setMaxValue(max)
+    setMinValue(min)
+    localStorage.setItem('counterMaxValue', JSON.stringify(max))
+    localStorage.setItem('counterMinValue', JSON.stringify(min))
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Settings changeValues={changeValues} maxValue={maxValue} minValue={minValue} />
+      <Counter maxValue={maxValue} minValue={minValue} />
     </div>
   );
 }
