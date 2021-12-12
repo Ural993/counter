@@ -14,3 +14,11 @@
     font-size: 50px;
     font-weight: bold;
 }
+.errorText{
+    font-size: 20px;
+    color: red;
+}
+.displayText{
+    font-size: 20px;
+    text-align: center;
+}

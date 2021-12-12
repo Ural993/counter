@@ -1,43 +1,50 @@
-import react, { useEffect, useState } from 'react'
-import { Button } from '../Button/Button'
-import { Display } from '../Display/Display'
+import react, {useEffect, useState} from 'react'
+import {Button} from '../Button/Button'
+import {Display} from '../Display/Display'
 import './Counter.css'
+
 type PropsType = {
     minValue: number
     maxValue: number
+    error: string | null
+    displayText: string | null
 }
 export const Counter = (props: PropsType) => {
+    console.log('Counter')
+    debugger
 
     useEffect(() => {
         setNumber(props.minValue)
-    }, [props.minValue])
+        setIsNumberRichMaxValue(false)
+    }, [props.minValue, props.maxValue])
 
     const maxNumber = props.maxValue
     const minNumber = props.minValue
 
     let [number, setNumber] = useState<number>(minNumber)
-    let [isnumberFive, setisNumberFive] = useState(false)
+    let [isNumberRichMaxValue, setIsNumberRichMaxValue] = useState(false)
 
-    const onIncClicHandler = () => {
+    const onIncClickHandler = () => {
         let newValue = number + 1
         if (number < maxNumber) {
             setNumber(newValue)
         }
         if (newValue === maxNumber) {
-            setisNumberFive(true)
+            setIsNumberRichMaxValue(true)
         }
 
     }
-    const onResetClicHandler = () => {
+    const onResetClickHandler = () => {
         setNumber(minNumber)
-        setisNumberFive(false)
+        setIsNumberRichMaxValue(false)
     }
     return (
         <div className='counter'>
-            <Display number={number} isnumberFive={isnumberFive} />
+            <Display number={number} isNumberRichMaxValue={isNumberRichMaxValue} error={props.error}
+                     displayText={props.displayText}/>
             <div className='wrapper'>
-                <Button disabled={number === maxNumber} name={'inc'} callback={onIncClicHandler} />
-                <Button disabled={number === minNumber} name={'reset'} callback={onResetClicHandler} />
+                <Button disabled={number === maxNumber || Boolean(props.displayText)} name={'inc'} callback={onIncClickHandler}/>
+                <Button disabled={number === minNumber} name={'reset'} callback={onResetClickHandler}/>
             </div>
         </div>
     )
